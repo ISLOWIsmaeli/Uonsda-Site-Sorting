@@ -48,9 +48,10 @@
       <section class="">
         <p class="d-flex justify-content-center align-items-center">
           <span class="me-3">Register for free</span>
-          <button type="button" class="btn btn-outline-light btn-rounded">
+
+          <a href={% url 'sign_up_page' %} class="btn btn-outline-light btn-rounded">
             Sign up!
-          </button>
+          </a>
         </p>
       </section>
       <!-- Section: CTA -->
@@ -60,7 +61,7 @@
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       © 2024 Copyright:
-      <a class="text-white" href={% url "sign_up_page" %}>UoNSDA Missions</a>
+      <a class="text-white" href={% url "start_page" %}>UoNSDA Missions</a>
     </div>
     <!-- Copyright -->
   </footer>
