@@ -23,19 +23,20 @@ def loginView(request:HttpRequest,*args,**kwargs):
             login(request, user)
             return redirect('success')
         else:
-            return render(request, 'login.html',context)
+            return render(request, 'sorting/login.html',context)
     else:
-        return render(request, 'login.html')
+        return render(request, 'sorting/login.html')
     
-def signUnView(request:HttpRequest,*args,**kwargs):
+def signUpView(request:HttpRequest,*args,**kwargs):
     if request.method == 'POST':
         username=request.POST['username']
         password=request.POST['password']
+        context = {'error_message':'Username already exists. Please choose a different one.'}
         if User.objects.filer(username=username).exists():
-            return render(request,'signup.html',{'error_message':'Username already exists. Please choose a different one.'})
+            return render(request,'sorting/signup.html',context)
         else:
             user = User.objects.create_user(username=username, password=password)
             login(request,user)
             return redirect('success')
     else:
-        return(request,'signup.html')
+        return(request,'sorting/signup.html')
