@@ -32,11 +32,11 @@ def signUpView(request:HttpRequest,*args,**kwargs):
         username=request.POST['username']
         password=request.POST['password']
         context = {'error_message':'Username already exists. Please choose a different one.'}
-        if User.objects.filer(username=username).exists():
+        if User.objects.filter(username=username).exists():
             return render(request,'sorting/signup.html',context)
         else:
             user = User.objects.create_user(username=username, password=password)
             login(request,user)
             return redirect('success')
     else:
-        return(request,'sorting/signup.html')
+        return render(request,'sorting/signup.html')
