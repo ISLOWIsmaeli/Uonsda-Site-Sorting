@@ -2,7 +2,7 @@ import pandas as pd
 from openpyxl import load_workbook
 import random
 
-data_from_excel=pd.read_excel()
+data_from_excel=pd.read_excel("C:\\Users\\Lennox\\Documents\\myProjects\\tutorials\\tutorial-hell\\openPyxlModule\\list-Lari-Mid-year.xlsx")
 names_data_list=[]
 campus_data_list=[]
 gender_data_list=[]
@@ -34,4 +34,6 @@ for person in data_from_excel.values:
 
     print(sites_with_allocated_people)
     pd.set_option("display.max_columns",None)
-    print(pd.DataFrame({key:pd.Series(value) for key, value in sites_with_allocated_people.items}))
+    print(sites_with_allocated_people)
+    # print(pd.DataFrame({key:pd.Series(value) for key, value in sites_with_allocated_people.items}))
+    # print(pd.DataFrame({key: pd.Series(list(value)) for key, value in sites_with_allocated_people.items()}))
