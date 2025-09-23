@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block title %}SignUp•UoNSDA Missionaries{% endblock title %}
 {% block content %}
-{% if error_message %}
+  <h1>Register New User</h1>
+  <form action="{% url 'sign-up-page' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Sign Up</button>
+  </form>
+{% endblock content %}
+{% comment %} {% if error_message %}
     <p class="text-danger">{{ error_message }}</p>
 {% endif %}
     <form method="post">
@@ -14,4 +21,4 @@
       </div>
       <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
-{% endblock content %}
+{% endblock content %} {% endcomment %}

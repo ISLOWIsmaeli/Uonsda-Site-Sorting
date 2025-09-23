@@ -1,4 +1,14 @@
 {% extends "base.html" %}
+{% block title %}Login • UoNSDA Missionaries{% endblock title %}
+{% block content %}
+  <h1>User Login</h1>
+  <form action="{% url 'login-page' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Log In</button>
+  </form>
+{% endblock content %}
+{% comment %} {% extends "base.html" %}
 {% block title %}Login•UoNSDA Missionaries{% endblock title %}
 {% block content %}
 <h2>Login<h2>
@@ -14,4 +24,4 @@
     <button type="submit">Login</button>
 </form>
 
-{% endblock content %}
+{% endblock content %} {% endcomment %}
