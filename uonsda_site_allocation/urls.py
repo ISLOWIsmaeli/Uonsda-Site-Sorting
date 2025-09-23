@@ -5,5 +5,4 @@ from django.urls import path, include
 urlpatterns = [
     path("",include("sorting.urls")),
     path("admin/", admin.site.urls),
-    # path("sorting/",include("sorting.urls")),
 ]

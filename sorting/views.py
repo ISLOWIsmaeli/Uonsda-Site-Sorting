@@ -5,13 +5,13 @@ from django.contrib.auth.models import User
 # from sorting_library.random import testFunc
 # Create your views here.
 def startPage(request:HttpRequest,*args,**kwargs):
-    return render(request,"sorting/home.html",{})
+    return render(request,"home/home.html",{})
 
 def contactPage(request:HttpRequest,*args,**kwargs):
-    return render(request,"sorting/contact.html",{})
+    return render(request,"contact/contact.html",{})
 
 def aboutPage(request:HttpRequest,*args,**kwargs):
-    return render(request,"sorting/about.html",{})
+    return render(request,"about/about.html",{})
 
 def loginView(request:HttpRequest,*args,**kwargs):
     if request.method == 'POST':
@@ -25,7 +25,7 @@ def loginView(request:HttpRequest,*args,**kwargs):
         else:
             return render(request, 'sorting/login.html',context)
     else:
-        return render(request, 'sorting/login.html')
+        return render(request, 'login.html')
     
 def signUpView(request:HttpRequest,*args,**kwargs):
     if request.method == 'POST':
@@ -39,4 +39,4 @@ def signUpView(request:HttpRequest,*args,**kwargs):
             login(request,user)
             return redirect('success')
     else:
-        return render(request,'sorting/signup.html')
+        return render(request,'signup.html')
