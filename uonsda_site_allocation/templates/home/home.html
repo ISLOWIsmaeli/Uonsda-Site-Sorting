@@ -3,10 +3,17 @@
 {% block content %}
 <div class="container text-center mt-5">
     <h1>Welcome to UoNSDA Missionaries</h1>
-    <p></p>
+    <p>    
+    {% if user.is_authenticated %}
+    <form action="{% url 'logout-page' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Log Out</button>
+    </form>
+    {% else %}
     <a href={% url 'registration-page' %}>Register</a>
     <a href={% url 'login-page' %} >Log In</a>
-    <p></p>
+    {% endif %}
+    </p>
 </div>
 
 {% endblock content %}

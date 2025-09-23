@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
 # from sorting_library.random import testFunc
 # Create your views here.
 def startPage(request:HttpRequest,*args,**kwargs):
@@ -21,7 +22,7 @@ def signUpView(request:HttpRequest,*args,**kwargs):
     if request.method == 'POST':
         form=UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            login(request,form.save())
             return redirect('start-page')
     else:
         form=UserCreationForm()
@@ -38,30 +39,8 @@ def loginView(request:HttpRequest,*args,**kwargs):
         form=AuthenticationForm()
     return render(request,"login/login.html",{"form":form})
 
-# def loginView(request:HttpRequest,*args,**kwargs):
-#     if request.method == 'POST':
-#         username=request.POST['username']
-#         password=request.POST['password']
-#         context={'error_message':'Invalid username or password.'}
-#         user= authenticate(request,username=username,password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('success')
-#         else:
-#             return render(request, 'sorting/login.html',context)
-#     else:
-#         return render(request, 'login.html')
+def logoutView(request:HttpRequest,*args,**kwargs):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('start-page')
     
-# def signUpView(request:HttpRequest,*args,**kwargs):
-#     if request.method == 'POST':
-#         username=request.POST['username']
-#         password=request.POST['password']
-#         context = {'error_message':'Username already exists. Please choose a different one.'}
-#         if User.objects.filter(username=username).exists():
-#             return render(request,'sorting/signup.html',context)
-#         else:
-#             user = User.objects.create_user(username=username, password=password)
-#             login(request,user)
-#             return redirect('success')
-#     else:
-#         return render(request,'signup.html')
