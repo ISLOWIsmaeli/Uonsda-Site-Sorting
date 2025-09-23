@@ -1,28 +1,13 @@
 {% extends "base.html" %}
-{% block title %}Register | UoNSDA Missionaries{% endblock %}
+{% block title %} UoNSDA Missionaries | Registration{% endblock %}
 {% block content %}
-<div class="registration-container" style="max-width: 400px; margin: 2em auto; background: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-    <h2 style="text-align:center; margin-bottom:1em;">UoNSDA Missions Registration</h2>
-    <form method="post">
+<section>
+    <h1>Mission Registration Form</h1>
+    <form method="post" action="{% url 'registration-page' %}">
         {% csrf_token %}
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required style="width:100%; margin-bottom:1em; padding:0.5em; border-radius:4px; border:1px solid #ccc;"><br>
-
-        <label for="gender">Gender:</label><br>
-        <select id="gender" name="gender" required style="width:100%; margin-bottom:1em; padding:0.5em; border-radius:4px; border:1px solid #ccc;">
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-        </select><br>
-
-        <label for="year_group">Year Group:</label><br>
-        <input type="text" id="year_group" name="year_group" required style="width:100%; margin-bottom:1em; padding:0.5em; border-radius:4px; border:1px solid #ccc;"><br>
-
-        <label for="campus_church">Campus Church:</label><br>
-        <input type="text" id="campus_church" name="campus_church" required style="width:100%; margin-bottom:1em; padding:0.5em; border-radius:4px; border:1px solid #ccc;"><br>
-
-        <button type="submit" style="width:100%; padding:0.7em; background:#0a4275; color:#fff; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Register</button>
+        {{ form }}
+        <button type="submit">Register</button>
     </form>
-</div>
+</section>
 {% endblock %}
+

@@ -4,6 +4,7 @@ from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from . import forms
 # from sorting_library.random import testFunc
 # Create your views here.
 def startPage(request:HttpRequest,*args,**kwargs):
@@ -15,8 +16,18 @@ def contactPage(request:HttpRequest,*args,**kwargs):
 def aboutPage(request:HttpRequest,*args,**kwargs):
     return render(request,"about/about.html",{})
 
+@login_required(login_url='/login')
 def registrationPage(request:HttpRequest,*args,**kwargs):
-    return render(request,"registration_page/registration_page.html",{})
+    if request.method == 'POST':
+        form = forms.PersonalInfoForm(request.POST)
+        if form.is_valid():
+            info = form.save(commit=False)
+            info.missionary = request.user
+            info.save()
+            return redirect('start-page')
+    else:
+        form = forms.PersonalInfoForm()
+    return render(request,"registration_page/registration_page.html",{"form":form})
 
 def signUpView(request:HttpRequest,*args,**kwargs):
     if request.method == 'POST':
