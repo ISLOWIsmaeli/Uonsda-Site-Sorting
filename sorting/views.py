@@ -1,4 +1,5 @@
 import pandas as pd
+import random
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
@@ -83,3 +84,19 @@ def uploadExcelView(request:HttpRequest,*args,**kwargs):
     else:
         form = forms.ExcelUploadForm()
     return render(request,"sorting/upload_excel.html",{"form":form})
+
+def randomGrouping(request:HttpRequest,*args,**kwargs):
+    # Fetch all records as a list
+    all_records = list(PersonalInfo.objects.all())
+    # Shuffle the list randomly
+    random.shuffle(all_records)
+    # Split into 5 groups as evenly as possible
+    group_size = len(all_records) // 5
+    remainder = len(all_records) % 5
+    groups = []
+    start = 0
+    for i in range(5):
+        end = start + group_size + (1 if i < remainder else 0)
+        groups.append(all_records[start:end])
+        start = end
+    return render(request, 'sorting/random_groups.html', {'groups': groups})
