@@ -9,4 +9,5 @@ urlpatterns = [
     path("logout",views.logoutView,name="logout-page"),    
     path("signUp",views.signUpView,name="sign-up-page"),
     path("registration",views.registrationPage,name="registration-page"),
+    path("upload-excel",views.uploadExcelView,name="upload-excel-page"),
 ]

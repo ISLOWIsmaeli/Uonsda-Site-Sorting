@@ -1,3 +1,4 @@
+import pandas as pd
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
@@ -5,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from . import forms
+from .models import PersonalInfo
 # from sorting_library.random import testFunc
 # Create your views here.
 def startPage(request:HttpRequest,*args,**kwargs):
@@ -55,3 +57,29 @@ def logoutView(request:HttpRequest,*args,**kwargs):
         logout(request)
         return redirect('start-page')
     
+def uploadExcelView(request:HttpRequest,*args,**kwargs):
+    if request.method == 'POST':
+        form = forms.ExcelUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            excel_file = request.FILES['file']
+            df = pd.read_excel(excel_file)
+            df.columns = df.columns.str.strip().str.lower()
+            for _, row in df.iterrows(): 
+                name = row.get('name')
+                gender = row.get('gender')
+                year_group = row.get('year_group')
+                campus_church = row.get('campus_church')
+                print(f'Name: {name}, Gender: {gender}, Year Group: {year_group}, Campus/Church: {campus_church}')
+                PersonalInfo.objects.update_or_create(
+                    name=name,
+                    defaults={
+                        'gender': gender,
+                        'year_group': year_group,
+                        'campus_church': campus_church,
+                    }
+                )
+            return redirect('upload-excel-page')
+                
+    else:
+        form = forms.ExcelUploadForm()
+    return render(request,"sorting/upload_excel.html",{"form":form})
