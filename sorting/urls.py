@@ -11,4 +11,5 @@ urlpatterns = [
     path("registration",views.registrationPage,name="registration-page"),
     path("upload_excel",views.uploadExcelView,name="upload-excel-page"), #to reorganize into staff
     path("random_groups",views.randomGroups,name="random-groups-page"),# to relook the algorithm
+    path("display_excel_data", views.displayExcelDataView, name="display-excel-data-page"),
 ]

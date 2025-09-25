@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Upload Excel and Specify Groups</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <label for="group_count">Number of groups:</label>
+        <input type="number" name="group_count" id="group_count" min="1" required>
+        <button type="submit">Upload & Sort</button>
+    </form>
+
+    {% if data %}
+        <h3>All Names in Excel:</h3>
+        <ul>
+            {% for name in names %}
+                <li>{{ name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if groups %}
+        <h3>Groups:</h3>
+        {% for group in groups %}
+            <h4>Group {{ forloop.counter }}</h4>
+            <ul>
+                {% for member in group %}
+                    <li>{{ member }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

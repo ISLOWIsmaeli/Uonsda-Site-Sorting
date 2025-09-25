@@ -7,17 +7,12 @@
     {% if user.is_authenticated and user.is_staff %}
     <a href={% url 'upload-excel-page' %}>Sort Missionaries</a>
     <a href={% url 'registration-page' %}>Register</a>
-    <a href={% url 'random-groups-page' %}>Group Missionaries</a>
-    {% comment %} <form action="{% url 'logout-page' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Log Out</button>
-    </form> {% endcomment %}
+    <a href={% url 'random-groups-page' %}>Group Missionaries From DB</a>
+    <a href={% url 'display-excel-data-page' %}>Group Missionaries From Excel Sheet</a>
+    
     {% elif user.is_authenticated and not user.is_staff %}
     <a href={% url 'registration-page' %}>Register</a>
-    {% comment %} <form action="{% url 'logout-page' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Log Out</button>
-    </form> {% endcomment %}
+    
     {% else %}
     <a href={% url 'login-page' %} >Log In</a>
     {% endif %}

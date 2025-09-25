@@ -100,3 +100,41 @@ def randomGroups(request:HttpRequest,*args,**kwargs):
         groups.append(all_records[start:end])
         start = end
     return render(request, 'sorting/random_groups.html', {'groups': groups})
+
+def displayExcelDataView(request:HttpRequest,*args,**kwargs):
+    import pandas as pd
+    data = None
+    groups = None
+    group_count = None
+    names = None
+    df = None
+    if request.method == 'POST':
+        form = forms.ExcelUploadForm(request.POST, request.FILES)
+        group_count = request.POST.get('group_count')
+        if form.is_valid():
+            excel_file = request.FILES['file']
+            df = pd.read_excel(excel_file)
+            data = df.to_dict(orient='records')
+            names = df[df.columns[0]].tolist() if not df.empty else []
+            if group_count and group_count.isdigit():
+                group_count = int(group_count)
+                shuffled = names.copy()
+                import random
+                random.shuffle(shuffled)
+                group_size = len(shuffled) // group_count
+                remainder = len(shuffled) % group_count
+                groups = []
+                start = 0
+                for i in range(group_count):
+                    end = start + group_size + (1 if i < remainder else 0)
+                    groups.append(shuffled[start:end])
+                    start = end
+    else:
+        form = forms.ExcelUploadForm()
+    return render(request, "sorting/display_excel_data.html", {
+        "form": form,
+        "data": data,
+        "names": names,
+        "groups": groups,
+        "group_count": group_count
+    })
