@@ -9,6 +9,6 @@ urlpatterns = [
     path("logout",views.logoutView,name="logout-page"),    
     path("signUp",views.signUpView,name="sign-up-page"),
     path("registration",views.registrationPage,name="registration-page"),
-    path("upload-excel",views.uploadExcelView,name="upload-excel-page"), #to reorganize into staff
-    path("random-groups",views.randomGrouping,name="random-groups-page"),# to relook the algorithm
+    path("upload_excel",views.uploadExcelView,name="upload-excel-page"), #to reorganize into staff
+    path("random_groups",views.randomGroups,name="random-groups-page"),# to relook the algorithm
 ]

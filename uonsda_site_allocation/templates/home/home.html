@@ -3,16 +3,25 @@
 {% block content %}
 <div class="container text-center mt-5">
     <h1>Welcome to UoNSDA Missionaries</h1>
-    <p>    
-    {% if user.is_authenticated %}
+    <p>
+    {% if user.is_authenticated and user.is_staff %}
+    <a href={% url 'upload-excel-page' %}>Sort Missionaries</a>
     <a href={% url 'registration-page' %}>Register</a>
-    <form action="{% url 'logout-page' %}" method="post">
+    <a href={% url 'random-groups-page' %}>Group Missionaries</a>
+    {% comment %} <form action="{% url 'logout-page' %}" method="post">
         {% csrf_token %}
         <button type="submit">Log Out</button>
-    </form>
+    </form> {% endcomment %}
+    {% elif user.is_authenticated and not user.is_staff %}
+    <a href={% url 'registration-page' %}>Register</a>
+    {% comment %} <form action="{% url 'logout-page' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Log Out</button>
+    </form> {% endcomment %}
     {% else %}
     <a href={% url 'login-page' %} >Log In</a>
     {% endif %}
+    
     </p>
 </div>
 

@@ -85,7 +85,7 @@ def uploadExcelView(request:HttpRequest,*args,**kwargs):
         form = forms.ExcelUploadForm()
     return render(request,"sorting/upload_excel.html",{"form":form})
 
-def randomGrouping(request:HttpRequest,*args,**kwargs):
+def randomGroups(request:HttpRequest,*args,**kwargs):
     # Fetch all records as a list
     all_records = list(PersonalInfo.objects.all())
     # Shuffle the list randomly

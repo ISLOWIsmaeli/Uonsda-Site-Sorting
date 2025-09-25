@@ -15,20 +15,31 @@
             <a href={% url "contacts-page" %}>Contact</a>
             <a href={% url "about-page" %}>About</a>
         </div>
-        <form class="search-form" role="search">
-            <input type="search" placeholder="Search" aria-label="Search">
-            <button type="submit">Search</button>
-        </form>
+        {% if user.is_authenticated %}
+            <form action="{% url 'logout-page' %}" method="post">
+            {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+        {% else %}
+            <div class="auth-buttons">
+                <a href={% url 'login-page' %} class="auth-btn">Login</a>
+                <a href={% url 'sign-up-page' %} class="auth-btn">Sign Up</a>
+            </div>
+        {% endif %}   
     </nav>
 
     {% block content %}
     {% endblock %}
 
     <footer class="footer">
+    {% if user.is_authenticated %}
+    
+    {% else %}
         <div class="cta">
-            <span>Register for free</span>
-            <a href={% url 'sign-up-page' %}>Sign up!</a>
+                <span>Register for free</span>
+                <a href={% url 'sign-up-page' %}>Sign up!</a>
         </div>
+    {% endif %}
         <div class="copyright"> Copyright &copy;
             <span class="copyright-year"></span>
             <a href={% url "start-page" %}>UoNSDA Missions</a>
